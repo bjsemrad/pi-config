@@ -7,7 +7,7 @@
       modules = [
         "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
         ({ pkgs, ... }: {
-          networking.hostName = "semradpi";
+          networking.hostName = "pi";
 
           services.openssh.enable = true;
           services.openssh.settings.PermitRootLogin = "yes";
@@ -19,9 +19,9 @@
           sdImage.compressImage = false;
           
           services.tailscale.enable = true;
-
+          boot.zfs.forceImportRoot = false;
            nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  nix.gc = {
+          nix.gc = {
     automatic = true;
     dates = "weekly";
     options = "--delete-older-than 30d";
